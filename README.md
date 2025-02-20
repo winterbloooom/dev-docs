@@ -1358,9 +1358,22 @@ ps -eL | grep <Query>
 <details>
 <summary>Find file</summary>
 
-```bash
-find {where-to-find} -name {name}
-```
+- `find`
+	```bash
+	find {where-to-find} -name {name} # e.g., find / -name test*
+	find {where-to-find} -name {name} -type {type} # e.g., {type} - `d` for directory, `f` for file
+	```
+- `which`: 실행파일/명령어 위치
+- `whereis`: 실행파일, 소스, 매뉴얼 파일 위치 (모든 내용 출력)
+</details>
+
+## 🍎 Mac
+
+<details>
+<summary>Python & virtual env. in Mac</summary>
+
+- [VSCode에서 파이썬 경로](https://hiddenbeginner.github.io/python/2022/03/16/vscode_terminal_does_not_point_python_of_virtual_envrionment.html)
+- [pip 경로](https://velog.io/@csu5216/conda-pip-%EA%B2%BD%EB%A1%9C%EA%B0%80-%EB%8B%A4%EB%A5%B8-%EA%B3%B3%EC%9D%84-%EB%B0%94%EB%9D%BC%EB%B3%BC-%EA%B2%BD%EC%9A%B0-for-MAC)
 </details>
 
 ## Blender
