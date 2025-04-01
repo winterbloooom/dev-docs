@@ -659,10 +659,10 @@ with open("FILE_NAME.pickle", "rb") as f:
 <summary>📦 Load npy file</summary>
 
 ```py
-np_file = np.load(PATH, allow_pickle=True, encoding='latin1')
-np_file.item().keys()
-np_file.item().get('key1')
-item1 = np_file['key1']
+# 저장된 데이터가 딕셔너리라면
+data = (np.load(PATH, allow_pickle=True)).item()
+data[KEY] # 키 이용해 데이터 접근
+data.keys() # 딕셔너리 키 목록
 ```
 <br>
 </details>
@@ -992,7 +992,7 @@ Configs:
 - remove environment: `conda env remove --name <env_name>`
 - activate environment: `conda activate <env_name>`
 - deactivate environment: `conda deactivate`
-- Package List: `conda env list`
+- Package List: `conda list`
 - Clean: `conda clean --all`
 - pip clean: `pip cache purge`
 
@@ -1099,8 +1099,9 @@ Options:
 
 ```bash
 # Extract frames from a video
-ffmpeg -i <VideoPath> -f image2 <ImgPath%d.jpg>
-# ffmpeg -ss 00:01:00 -to 00:21:00 -i input.mp4 -r 25 -f image2 image_%06d.jpg
+ffmpeg -i <VideoPath> -f image2 <ImgPath%d.png>
+# ffmpeg -ss 00:01:00 -to 00:21:00 -i input.mp4 -r 25 -f image2 image_%06d.png
+# PNG로 변환하지 않으면 화질이 깨질 때가 종종 있음
 
 # Merge frames into single video
 ffmpeg -framerate <FPS> -i <PathPattern> -c:v <Value> -pix_fmt <Value> <OutVideoPath.mp4>
@@ -1200,6 +1201,19 @@ ffprobe -v error -show_entries format=duration,stream=codec_type -of default=nop
   - args `command`: 리스트/튜플 혹은 문자열로 전달(`shell=True`일 때만)
   - args `shell`: True일 경우 명렁어를 셸을 통해 실행하고(`command`가 문자영리어야 하며, 파이프나 리디렉션 사용 가능), False(default)일 경우 직적 수행함
   - 명령어 수행의 출력을 받으려면 `subprocess.run()` 사용
+  - return이 0이면 성공적으로 수행되었음을 뜻함
+	```py
+	result = subprocess.call(
+	    [
+	        "ffmpeg", "-y", "-framerate", "60",
+	        "-i", "frame_%04d.png",
+	        "-c:v", "libx264",
+	        "-pix_fmt", "yuv420p",
+	        "output.mp4"
+	    ]
+	)
+	```
+
 - `subprocess.run(command)`: 명령을 실행하고 완료 시까지 대기
   - args `command`: 리스트로 전달
   - `capture_output`: `True` 시 stdout, stderr를 캡쳐함
@@ -1216,14 +1230,9 @@ ffprobe -v error -show_entries format=duration,stream=codec_type -of default=nop
   )
   ```
 
-```py
-import subprocess
-
-command = #command
-
-output = subprocess.call(command)
-output = subprocess.run(command)
-```
+- 만약 터미널에서 잘 작동하는 명령어가 `subprocess`를 했을 때 잘 작동하지 않는다면? (에러, 일부 기능 작동 안 함)
+  - ffmpeg의 프로그램 경로를 `ffmpeg` 대신 적어주기
+  - `where ffmpeg` → `subprocess.call(["/usr/bin/ffmpeg", ...])`
 </details>
 
 ### Terminal Customize
