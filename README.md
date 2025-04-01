@@ -3,7 +3,7 @@
 ### Coding Style
 
 <details>
-<summary>📏 Python Sytle Guids</summary>
+<summary>📏 Python Sytle Guide</summary>
 
 - [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)
 - [Documenting Python Code: A Complete Guide](https://realpython.com/documenting-python-code/#basics-of-commenting-code)
