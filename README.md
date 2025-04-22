@@ -1160,6 +1160,30 @@ ffmpeg -i <VideoPaht> -itsoffset <Offset(sec)> -i <VideoPaht> -map 0:v -map 1:a 
 # map -0:v : 첫 번째 입력 파일을 video 입력으로 삼음
 # map -1:a : 두 번째 입력 파일을 audio 입력으로 삼음
 ```
+
+```py
+# 오디오를 뒤로 밀기
+subprocess.run(
+    f"ffmpeg -loglevel {loglevel} -y "
+    + f"-i {video_path} "
+    + f"-itsoffset {delay_time} "
+    + f"-i {video_path} "
+    + "-map 0:v -map 1:a "  # -c:v copy -c:a copy "
+    + str(save_path),
+    shell=True,
+)
+
+# 비디오를 뒤로 밀기
+subprocess.run(
+    f"ffmpeg -loglevel {loglevel} -y "
+    + f"-i {video_path} "
+    + f"-itsoffset {delay_time} "
+    + f"-i {video_path} "
+    + "-map 0:a -map 1:v "  # -c:v copy -c:a copy "
+    + str(save_path),
+    shell=True,
+)
+```
 </details>
 
 <details>
@@ -1191,6 +1215,27 @@ ffprobe -v error -show_entries format=duration -of default=nk=1:nw=1 input.mp4
 
 # multiple query. one line, one output
 ffprobe -v error -show_entries format=duration,stream=codec_type -of default=noprint_wrappers=1 input.mp4
+```
+
+```py
+# If you want to get as scalar value in python pipeline
+def get_duration(video_path):
+    command = [
+        "ffprobe",
+        "-v",
+        "error",
+        "-show_entries",
+        "format=duration",
+        "-of",
+        "json",
+        video_path,
+    ]
+    result = subprocess.run(
+        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+    )
+    ffprobe_output = json.loads(result.stdout)
+    duration = float(ffprobe_output["format"]["duration"])
+    return duration
 ```
 </details>
 
