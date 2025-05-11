@@ -990,6 +990,8 @@ Configs:
 - environment list: `conda env list`
 - create environment: `conda create --name <env_name> [python=<py_version>]`
 - remove environment: `conda env remove --name <env_name>`
+- clone environment: `conda create --name <AFTER> --clone <ORIGINAL>`
+- change environment name: (이름 변경은 지원 안 함) 원하는 이름으로 그 환경을 __복사__해두고 원래 이름의 환경은 지우기
 - activate environment: `conda activate <env_name>`
 - deactivate environment: `conda deactivate`
 - Package List: `conda list`
@@ -1016,6 +1018,13 @@ git remote add origin <URL-OF-REMOTE-REPOSITORY>
 git branch -M main
 git push -u origin master
 ```
+</details>
+
+<details>
+<summary>Clone specific vertion of commit</summary>
+
+1. Clone repo: `git clone <repo_address>`
+2. Go to that commit: `git reset --hard <commitID>`
 </details>
 
 ### VSCode
@@ -1284,6 +1293,8 @@ def get_duration(video_path):
 
 <details>
 <summary>iTerm2 + oh-my-zsh</summary>
+
+- Change bash to zsh: `chsh -s /usr/bin/zsh`
 
 - https://salmonpack.tistory.com/52
 - https://kdohyeon.tistory.com/122
