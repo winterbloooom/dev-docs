@@ -275,6 +275,10 @@ Here's a guideline from [Gudio](https://en.wikipedia.org/wiki/Guido_van_Rossum)
 print(f"{value:,}")
 # 천 단위 콤마 표시 + 소숫점 (소숫점 앞 5자리, 뒤 2자리)
 print(f"{value:5,.2f}")
+
+# Scientific Notation (지수 표현)
+print("{value:.2e}") # 1234567.89 -> 1.23e+06
+print("{value:.2e}") # 0.0000001234 -> 1.23e-07
 ```
 
 <br>
@@ -656,13 +660,16 @@ with open("FILE_NAME.pickle", "rb") as f:
 `import numpy as np`
 
 <details>
-<summary>📦 Load npy file</summary>
+<summary>📦 Load npy, npz file</summary>
 
 ```py
+# npz: 키 목록 보기
+data = np.load(PATH)
+keys = [k for k in data.keys()] # print(data.keys())는 안 보임
+
 # 저장된 데이터가 딕셔너리라면
 data = (np.load(PATH, allow_pickle=True)).item()
 data[KEY] # 키 이용해 데이터 접근
-data.keys() # 딕셔너리 키 목록
 ```
 <br>
 </details>
