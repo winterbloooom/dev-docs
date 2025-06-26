@@ -1126,6 +1126,34 @@ ffmpeg -framerate <FPS> -i <PathPattern> -c:v <Value> -pix_fmt <Value> <OutVideo
 </details>
 
 <details>
+<summary>Merge multiple images in one frames</summary>
+
+```bash
+# 4 images to one (upper left, upper right, lower left, lower right)
+ffmpeg \
+-i [ul_path] -i [ur_path] -i [ll_path] -i [lr_path] \
+-filter_complex "[0:v][1:v]hstack=inputs=2[top];[2:v][3:v]hstack=inputs=2[bottom];[top][bottom]vstack=inputs=2[out]" \
+-map", "[out]" \
+[save_path]
+```
+
+```py
+import subprocess
+cmd = [
+    'ffmpeg', '-y', '-loglevel', "error",
+    '-i', ul, '-i', ur, '-i', ll, '-i', lr,
+    "-filter_complex",
+    "[0:v][1:v]hstack=inputs=2[top];"
+    "[2:v][3:v]hstack=inputs=2[bottom];"
+    "[top][bottom]vstack=inputs=2[out]",
+    "-map", "[out]",
+    save_path
+]
+return_code = subprocess.call(cmd)
+```
+</details>
+
+<details>
 <summary>Extract audio from video</summary>
 
 Options:
