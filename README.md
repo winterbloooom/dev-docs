@@ -1337,6 +1337,20 @@ def get_duration(video_path):
 - Key mapping: https://stackoverflow.com/questions/6205157/how-to-set-keyboard-shortcuts-to-jump-to-beginning-end-of-line/29403520#29403520
 </details>
 
+### OS 환경변수
+
+- python: `os.environ`으로 설정 (숫자는 str처리)
+- 또는 bash 파일에 export로 설정
+
+```
+OMP_NUM_THREADS
+MKL_NUM_THREADS
+NUMEXPR_NUM_THREADS
+
+OPENBLAS_NUM_THREADS
+VECLIP_MAXIMUM_THREADS
+```
+
 ## 🐧 Linux
 
 <details>
