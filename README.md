@@ -1339,6 +1339,9 @@ def get_duration(video_path):
 
 ### OS 환경변수
 
+<details>
+<summary>Setting environment variables when you train a deep learning model</summary>
+
 - python: `os.environ`으로 설정 (숫자는 str처리)
 - 또는 bash 파일에 export로 설정
 
@@ -1350,6 +1353,7 @@ NUMEXPR_NUM_THREADS
 OPENBLAS_NUM_THREADS
 VECLIP_MAXIMUM_THREADS
 ```
+</details>
 
 ## 🐧 Linux
 
@@ -1482,6 +1486,86 @@ ps -eL | grep <Query>
 </details>
 
 ## 🍎 Mac
+
+<details>
+<summary>유용한 초기 설정</summary>
+
+1. Install programs
+	- Snipaste: capture, pin images
+	- Keka: zip
+	- CopyClip: Clipboard
+	- Rectangle: window control
+	- MS Edge or Chrome
+	- Notion or Obsidian
+2. Trackpad
+	- Drag with three figures
+3. Settings
+	1. Settings > Function Keys > enable 'Use F1, F2, ...'
+	2. 'Finder' app > View > 'Show Path Bar', 'Show Status Bar'
+	3. 'Finder' app > Tool bar right click > Customize... > insert/delete icons
+</details>
+
+<details>
+<summary>iTerm2 + zsh + ohmyzsh</summary>
+
+ - Install
+	```bash
+	# Install homebrew
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	echo 'export PATH=/opt/homebrew/bin:$PATH' >> ~/.zshrc
+	source ~/.zshrc
+	
+	# Install iTerm2
+	brew install iterm2
+	
+	# Install ohmyzsh
+	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	```
+- Theme: `vi ~/.zshrc` -> Find `ZSH_THEME` and change to what you want (e.g., `agnoster`)
+- Color
+	1. Browse colors here -> https://iterm2colorschemes.com/
+	2. Download the code of the picked color: `curl -L0 [URL_OF_COLOR]`
+	3. iTerm2 > Settings > Profiles > Colors > Color presets > Import > select the downloaded file
+- Font: iTerm2 > Settings > Profiles > Font (e.g., 'D2Coding')
+- Other custom terminal settings
+	```bash
+	### Newline
+	vi ~/.oh-my-zsh/themes/[YOUR_THEME].zsh-theme # or zshrc?
+	# Find `build_prompt()` function, insert line below between `prompt_hg` and `prompt_end`
+	prompt_newline
+	# Insert function below
+	prompt_newline() {
+	  if [[ -n $CURRENT_BG ]]; then
+		echo -n "%{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR
+	%{%k%F{blue}%}$SEGMENT_SEPARATOR"
+	  else
+		echo -n "%{%k%}"
+	  fi
+	
+	  echo -n "%{%f%}"
+	  CURRENT_BG=''
+	}
+	source ~/.zshrc
+
+	### Delete computer name: insert codes below
+	vi ~/.zshrc
+	prompt_context() {
+	  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+		prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
+	  fi
+	}
+	source ~/.zshrc
+
+	### Syntax highlighting (commands for M series users)
+	brew install zsh-syntax-highlighting
+	source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+	
+	### Auto suggestion
+	brew install zsh-autosuggestions
+	source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+ 	```
+ - Tmux install: `brew install tmux`
+</details>
 
 <details>
 <summary>Python & virtual env. in Mac</summary>
