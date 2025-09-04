@@ -1024,7 +1024,18 @@ git remote add origin <URL-OF-REMOTE-REPOSITORY>
 # Push
 git branch -M main
 git push -u origin master
+
+# GitHub에서 merge하고 local에 동기화
+git fetch -p # 원격 브랜치 삭제 내역 반영
+git pull
+git branch -d <branch_name> # 로컬 브랜치 삭제
 ```
+</details>
+
+<details>
+<summary>Branch naming convention</summary>
+
+- https://medium.com/@abhay.pixolo/naming-conventions-for-git-branches-a-cheatsheet-8549feca2534
 </details>
 
 <details>
