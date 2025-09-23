@@ -1585,6 +1585,21 @@ ps -eL | grep <Query>
 - [pip 경로](https://velog.io/@csu5216/conda-pip-%EA%B2%BD%EB%A1%9C%EA%B0%80-%EB%8B%A4%EB%A5%B8-%EA%B3%B3%EC%9D%84-%EB%B0%94%EB%9D%BC%EB%B3%BC-%EA%B2%BD%EC%9A%B0-for-MAC)
 </details>
 
+## 🪟 Windows
+
+<details>
+<summary>파일명 대소문자 구분 활성화하기</summary>
+
+윈도우에서는 파일명이 대소문자를 구분하지 않음(abc.txt나 ABC.txt나 같다고 취급). 이를 변경하는 방법.
+
+1. 빈 폴더 만들기
+2. 명령 프롬프트를 관리자 권한으로 열기
+3. fsutil file setCaseSensitiveInfo <PATH> enable
+    1. "대/소문자 구분 특성을 사용할 수 있습니다."라고 출력되면 설정 완료
+    2. 비활성화하려면 disable로 인자 주기
+4. 어떻게 설정되어 있나 알고 싶다면 queryCaseSensitiveInfo 
+</details>
+
 ## Blender
 
 - [Blender에서 파이썬 사용하기](https://itadventure.tistory.com/319)
