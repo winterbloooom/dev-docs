@@ -1050,13 +1050,17 @@ git branch -d <branch_name> # 로컬 브랜치 삭제
 <details>
 <summary>Debugging Configurations</summary>
 
-- 항상 특정 파일에서 디버깅하기: `"program": "파일명"` (Note: `${file}`은 디버깅 버튼을 누른 해당 파일을 의미)
-- 환경 변수 설정하기: `env` 딕셔너리에 입력. 아래는 GPU 지정 예시.
+- 항상 특정 파일에서 디버깅하기: `"program": "파일명"`. `${file}`은 디버깅 버튼을 누른 해당 파일을 의미
+- 환경 변수 설정하기: `env` 딕셔너리에 입력
+- 루트 경로가 아닌, 특정 경로에서 디버깅 시작 (change directory): `cwd`에 입력. 현재 열려있는 파일의 디렉토리 이름은 `${fileDirname}`
+
 ```
 "env": {
 	"CUDA_VISIBLE_DEVICES": "6"
-}
+},
+"cwd": "src" 
 ```
+
 - `python -m`으로 시작하는 실행
 ```
 "module": "dir/.../file" # program  대신
@@ -1494,6 +1498,46 @@ ps -eL | grep <Query>
 	```
 - `which`: 실행파일/명령어 위치
 - `whereis`: 실행파일, 소스, 매뉴얼 파일 위치 (모든 내용 출력)
+</details>
+
+<details>
+<summary>zsh + ohmyzsh + tmux</summary>
+
+```bash
+apt-get update
+apt install tmux -y
+
+apt install -y zsh
+chsh -s `which zsh` # VSCode Terminal - select default profile 도 변경
+
+# ohmyzsh 설치
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+conda init zsh
+
+# 테마 변경
+# https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+vi ~/.zshrc -> 변경(crunch) -> source ~/.zshrc
+
+# 줄 바꿈
+vi ~/.oh-my-zsh/themes/{THEME}.zsh-theme
+# 아래 내용 추가
+NEWLINE=$'\n'
+COND='%(?.%F{green}❯%f.%F{red}❯%f) '
+# PROMPT 끝에 ${NEWLINE}${COND} 추가
+
+# auto suggestion, highlighting
+cd ~/.oh-my-zsh/plugins
+
+git clone https://github.com/zsh-users/zsh-autosuggestions.git
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+
+echo "source ${(q-)PWD}/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+ 
+vi ~/.zshrc
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+source ~/.zshrc
+```
 </details>
 
 ## 🍎 Mac
