@@ -1644,6 +1644,70 @@ source ~/.zshrc
 4. 어떻게 설정되어 있나 알고 싶다면 queryCaseSensitiveInfo 
 </details>
 
+<details>
+<summary>터미널 꾸미기: oh my posh</summary>
+
+1️⃣ 윈도우 보안설정 변경 - [참고 링크](https://python.realjourney.co.kr/entry/PowerShellWindows-%EC%9D%B4-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%97%90%EC%84%9C-%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%A5%BC-%EC%8B%A4%ED%96%89%ED%95%A0-%EC%88%98-%EC%97%86%EC%9C%BC%EB%AF%80%EB%A1%9C-ps1-%ED%8C%8C%EC%9D%BC%EC%9D%84-%EB%A1%9C%EB%93%9C%ED%95%A0-%EC%88%98-%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95#google_vignette)
+
+- 파워쉘 관리자 권한으로 열기
+- `Set-ExecutionPolicy RemoteSigned` 입력
+
+2️⃣ oh my posh 설치
+
+- 파워쉘 관리자 권한으로 열기
+- 설치: `winget install oh-my-posh`
+- 일반 권한으로 다시 열기
+- `oh-my-posh get shell`: 실행 시 pwsh이 나오면 됨
+
+3️⃣ Theme 선택 - [테마 목록](https://ohmyposh.dev/docs/themes)
+
+- `New-Item -Path $PROFILE -Type File -Force`: 설정 파일 메모장 열기 전, 에러 방지
+- `notepad $PROFILE`: 설정 파일이 메모장 열림 (빈 파일)
+- 아래 내용 입력 후 저장
+```
+oh-my-posh init pwsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/<테마_json_파일>' | Invoke-Expression
+```
+
+4️⃣ 글꼴 선택 - [폰드 목록](https://www.nerdfonts.com/font-downloads)
+
+- 파워쉘 관리자 권한으로 열기
+- `oh-my-posh font install`: 다운로드 가능한 글꼴 목록 보임. 원하는 것 다운로드.
+- 파워쉘 일반 열기 - 설정 - 일반 - 모양 - 글꼴 변경
+
+5️⃣ VSCode 적용
+
+- settings.json 열기
+- `"terminal.integrated.fontFamily": "CaskaydiaCove Nerd Font"` : 폰트 설정
+
+6️⃣ 플러그인 등 설정
+
+- 터미널에서 `notepad $PROFILE`으로 설정 파일 열기 후 아래 내용 입력
+```
+oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json" | Invoke-Expression
+
+Import-Module PSReadLine
+Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineOption -PredictionViewStyle ListView
+
+Set-PSReadLineOption -HistorySearchCursorMovesToEnd
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+
+Import-Module posh-git
+```
+
+7️⃣ Git bash 적용 - [참고 링크](https://velog.io/@codedari/Windows%EC%97%90%EC%84%9C-Oh-My-Posh-%EC%A6%90%EA%B8%B0%EA%B8%B0)
+
+- 테마 json 파일 로컬에 저장
+  - .bashrc 파일에 아래 내용 입력 후 저장, 적용
+```
+eval "$(oh-my-posh --init --shell bash --config ~/atomic.omp.json)"
+```
+
+8️⃣ 추가 참고 링크
+- https://inspire12.tistory.com/344
+</details>
+
 ## Blender
 
 - [Blender에서 파이썬 사용하기](https://itadventure.tistory.com/319)
