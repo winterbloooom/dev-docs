@@ -932,6 +932,21 @@ ssh -NfL localhost:6007:localhost:6007 eungi@gpu01
     - [remote server 로부터 Tensorboard 사용하는 방법](https://data-newbie.tistory.com/363)
 </details>
 
+### dotenv
+
+<details>
+<summary>dotenv로 환경변수 관리</summary>
+	
+- `.env` 파일에 환경변수 정의
+	- 코드 내 민감 정보를 적지 않고도 환경변수 관리 용이
+```
+API_KEY=your_api_key
+```
+
+- 설치: pip install python-dotenv
+- 사용: `from dotenv import load_dotenv; load_dotenv()`
+- 환경변수 값 가져오기: `os.getenv('API_KEY')` 혹은 `os.environ['API-KEY]`
+</details>
 
 ## 🔦 Dev Tools
 
